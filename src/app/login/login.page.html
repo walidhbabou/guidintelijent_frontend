@@ -1,0 +1,54 @@
+<ion-content [fullscreen]="true" class="login-content">
+  <div class="background-image"></div>
+  <div class="background-overlay"></div>
+  
+  <div class="login-container">
+    <!-- Header -->
+    <div class="welcome-section">
+      <h1 class="welcome-title">Bienvenue !</h1>
+      <p class="welcome-subtitle">Guide Touristique Intelligent</p>
+    </div>
+
+    <!-- Login Form -->
+    <div class="login-form">
+      <div class="input-group">
+        <ion-icon name="lock-closed-outline" class="input-icon"></ion-icon>
+        <input 
+          type="email" 
+          [(ngModel)]="email" 
+          placeholder="Adresse e-mail"
+          class="custom-input"
+        />
+      </div>
+
+      <div class="input-group">
+        <ion-icon name="lock-closed-outline" class="input-icon"></ion-icon>
+        <input 
+          [type]="showPassword ? 'text' : 'password'" 
+          [(ngModel)]="password" 
+          placeholder="Mot de passe"
+          class="custom-input"
+        />
+      </div>
+
+      <button class="login-btn" (click)="login()">
+        Connexion
+      </button>
+
+      <a class="forgot-password" (click)="forgotPassword()">
+        Mot de passe oublié ?
+      </a>
+
+      <button class="google-btn" (click)="loginWithGoogle()">
+        <ion-icon name="logo-google"></ion-icon>
+        Connexion avec Google
+      </button>
+
+      <!-- Sign up link -->
+      <p class="signup-text">
+        Vous n'avez pas de compte ? 
+        <a (click)="goToSignup()">Inscrivez-vous</a>
+      </p>
+    </div>
+  </div>
+</ion-content>

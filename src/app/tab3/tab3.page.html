@@ -1,0 +1,44 @@
+<ion-content [fullscreen]="true" class="profile-content">
+  <div class="profile-shell ion-padding">
+    <section class="identity-card">
+      <img src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?auto=format&fit=crop&w=300&q=80" alt="Sophie" />
+      <div>
+        <p>Profil</p>
+        <h1>Sophie Dubois</h1>
+        <small>Exploratrice urbaine</small>
+      </div>
+    </section>
+
+    <section class="stats">
+      <article>
+        <strong>27</strong>
+        <span>Lieux visites</span>
+      </article>
+      <article>
+        <strong>15</strong>
+        <span>Favoris</span>
+      </article>
+      <article>
+        <strong>8</strong>
+        <span>Guides audio</span>
+      </article>
+    </section>
+
+    <h2>Sorties enregistrees</h2>
+    <article class="trip" *ngFor="let trip of trips">
+      <img [src]="trip.image" [alt]="trip.title" loading="lazy" />
+      <div>
+        <h3>{{ trip.title }}</h3>
+        <p>{{ trip.subtitle }}</p>
+      </div>
+      <ion-icon name="bookmark"></ion-icon>
+    </article>
+
+    <h2>Notifications</h2>
+    <article class="notice" *ngFor="let notice of notices">
+      <h3>{{ notice.title }}</h3>
+      <p>{{ notice.text }}</p>
+      <small>{{ notice.time }}</small>
+    </article>
+  </div>
+</ion-content>

@@ -1,0 +1,48 @@
+<ion-content [fullscreen]="true" class="details-content">
+  <div class="details-shell ion-padding">
+    <header class="top-row">
+      <h1>{{ place.name }}</h1>
+      <ion-icon name="search-outline"></ion-icon>
+    </header>
+
+    <img class="hero-image" [src]="place.image" [alt]="place.name" loading="lazy" />
+
+    <section class="headline">
+      <div>
+        <h2>{{ place.name }}</h2>
+        <p>{{ place.score }} / {{ place.reviews }}</p>
+      </div>
+      <span>{{ place.tag }}</span>
+    </section>
+
+    <section class="menu-lines">
+      <button>
+        Ratings
+        <ion-icon name="chevron-forward-outline"></ion-icon>
+      </button>
+      <button>
+        Horaires et Acces
+        <ion-icon name="chevron-forward-outline"></ion-icon>
+      </button>
+      <button>
+        Les Avis (103)
+        <ion-icon name="chevron-forward-outline"></ion-icon>
+      </button>
+    </section>
+
+    <section class="audio-box">
+      <ion-icon name="play"></ion-icon>
+      <div class="audio-wave"></div>
+      <small>02:15</small>
+    </section>
+
+    <article class="comment" *ngFor="let c of comments">
+      <img [src]="c.image" [alt]="c.name" loading="lazy" />
+      <div>
+        <h3>{{ c.name }}</h3>
+        <p>{{ c.text }}</p>
+        <small>{{ c.likes }} likes</small>
+      </div>
+    </article>
+  </div>
+</ion-content>

@@ -1,0 +1,49 @@
+<ion-content [fullscreen]="true" class="favoris-content">
+  <div class="favoris-shell ion-padding">
+    <header class="page-header">
+      <h1>Mes Favoris</h1>
+      <ion-icon name="heart" class="heart-icon"></ion-icon>
+    </header>
+
+    <section class="category-tabs">
+      <button 
+        *ngFor="let cat of categories" 
+        [class.active]="selectedCategory === cat"
+        (click)="selectCategory(cat)">
+        {{ cat }}
+      </button>
+    </section>
+
+    <section class="favorites-list">
+      <article class="favorite-card" *ngFor="let item of getFilteredFavorites(); let i = index" [style.animation-delay]="i * 60 + 'ms'">
+        <img [src]="item.image" [alt]="item.name" loading="lazy" />
+        <div class="card-info">
+          <div class="card-header">
+            <div>
+              <h3>{{ item.name }}</h3>
+              <p class="location">
+                <ion-icon name="location-outline"></ion-icon>
+                {{ item.location }}
+              </p>
+            </div>
+            <button class="like-btn" (click)="toggleLike(item)" [class.active]="item.isLiked">
+              <ion-icon [name]="item.isLiked ? 'heart' : 'heart-outline'"></ion-icon>
+            </button>
+          </div>
+          <div class="card-footer">
+            <span class="category-badge">{{ item.category }}</span>
+            <div class="rating">
+              <ion-icon name="star"></ion-icon>
+              <span>{{ item.rating }}</span>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <p class="empty-state" *ngIf="getFilteredFavorites().length === 0">
+      <ion-icon name="heart-outline"></ion-icon>
+      Aucun favori dans cette catégorie
+    </p>
+  </div>
+</ion-content>

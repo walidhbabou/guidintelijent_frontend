@@ -1,0 +1,49 @@
+<ion-content [fullscreen]="true" class="home-content">
+  <div class="home-shell ion-padding">
+    <header class="hero">
+      <div class="hero-copy">
+        <h1>Bonjour <strong>Sophie</strong> <span class="wave">&#128075;</span></h1>
+      </div>
+      <button class="bubble-btn" aria-label="Notifications">
+        <span class="bubble-core">
+          <ion-icon name="person"></ion-icon>
+        </span>
+        <span>1</span>
+      </button>
+    </header>
+
+    <h2 class="title">Guide Touristique Intelligent</h2>
+
+    <section class="search-box">
+      <ion-icon name="search-outline"></ion-icon>
+      <input type="text" placeholder="Rechercher un lieu..." />
+      <button aria-label="Recherche vocale">
+        <ion-icon name="mic-outline"></ion-icon>
+      </button>
+    </section>
+
+    <section class="popular-header">
+      <h3>Lieux Populaires</h3>
+      <ion-icon name="chevron-forward-outline"></ion-icon>
+    </section>
+
+    <section class="grid-cards">
+      <article class="place-card" *ngFor="let place of popularPlaces">
+        <img [src]="place.image" [alt]="place.city" loading="lazy" />
+        <div class="card-body">
+          <h4>{{ place.city }}</h4>
+          <p class="rating">
+            <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            {{ place.score }} / 5
+          </p>
+          <span class="chip">{{ place.tag }} · {{ place.reviews }} avis</span>
+        </div>
+      </article>
+    </section>
+
+    <button class="voice-cta">
+      <ion-icon name="mic"></ion-icon>
+      Recherche Vocale
+    </button>
+  </div>
+</ion-content>

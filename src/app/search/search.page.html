@@ -1,0 +1,118 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tab1"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Recherche</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="search-content">
+  <div class="search-shell ion-padding">
+    
+    <!-- Barre de recherche principale -->
+    <section class="main-search">
+      <ion-icon name="search-outline"></ion-icon>
+      <input 
+        type="text" 
+        placeholder="Que voulez-vous découvrir ?" 
+        [(ngModel)]="searchQuery"
+        (input)="onSearch($event)"
+      />
+      <button *ngIf="searchQuery" (click)="clearSearch()" class="clear-btn">
+        <ion-icon name="close-circle"></ion-icon>
+      </button>
+      <button class="filter-btn">
+        <ion-icon name="options-outline"></ion-icon>
+      </button>
+    </section>
+
+    <!-- Catégories -->
+    <section class="category-chips">
+      <button 
+        *ngFor="let cat of categories" 
+        [class.active]="selectedCategory === cat"
+        (click)="selectCategory(cat)">
+        {{ cat }}
+      </button>
+    </section>
+
+    <!-- Recherches récentes -->
+    <section class="recent-section" *ngIf="!searchQuery && recentSearches.length > 0">
+      <div class="section-header">
+        <h3>
+          <ion-icon name="time-outline"></ion-icon>
+          Recherches récentes
+        </h3>
+        <button class="clear-all">Effacer</button>
+      </div>
+      <div class="recent-list">
+        <article class="recent-item" *ngFor="let search of recentSearches; let i = index">
+          <ion-icon name="search-outline"></ion-icon>
+          <span>{{ search }}</span>
+          <button (click)="removeRecentSearch(i)" class="remove-btn">
+            <ion-icon name="close"></ion-icon>
+          </button>
+        </article>
+      </div>
+    </section>
+
+    <!-- Tendances -->
+    <section class="trending-section" *ngIf="!searchQuery">
+      <div class="section-header">
+        <h3>
+          <ion-icon name="flame-outline"></ion-icon>
+          Tendances
+        </h3>
+      </div>
+      <div class="trending-tags">
+        <button *ngFor="let trend of trendingSearches" class="trend-tag">
+          {{ trend }}
+        </button>
+      </div>
+    </section>
+
+    <!-- Résultats de recherche -->
+    <section class="results-section" *ngIf="searchQuery || selectedCategory !== 'Tous'">
+      <div class="section-header">
+        <h3>{{ getFilteredResults().length }} résultats trouvés</h3>
+      </div>
+      
+      <article class="result-card" *ngFor="let result of getFilteredResults(); let i = index" [style.animation-delay]="i * 50 + 'ms'">
+        <img [src]="result.image" [alt]="result.name" loading="lazy" />
+        <div class="result-info">
+          <div class="result-header">
+            <div>
+              <h4>{{ result.name }}</h4>
+              <p class="location">
+                <ion-icon name="location-outline"></ion-icon>
+                {{ result.location }} · {{ result.distance }}
+              </p>
+            </div>
+            <button class="favorite-btn">
+              <ion-icon name="heart-outline"></ion-icon>
+            </button>
+          </div>
+          <div class="result-footer">
+            <span class="category-tag">{{ result.category }}</span>
+            <div class="rating">
+              <ion-icon name="star"></ion-icon>
+              <span>{{ result.rating }}</span>
+            </div>
+            <span class="status" [class.open]="result.isOpen">
+              {{ result.isOpen ? 'Ouvert' : 'Fermé' }}
+            </span>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- État vide -->
+    <div class="empty-state" *ngIf="searchQuery && getFilteredResults().length === 0">
+      <ion-icon name="search-outline"></ion-icon>
+      <h3>Aucun résultat trouvé</h3>
+      <p>Essayez d'autres mots-clés ou catégories</p>
+    </div>
+
+  </div>
+</ion-content>

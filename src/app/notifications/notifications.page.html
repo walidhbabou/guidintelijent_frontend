@@ -1,0 +1,58 @@
+<ion-content [fullscreen]="true" class="notifications-content">
+  <div class="notifications-shell ion-padding">
+    <header class="header">
+      <div>
+        <h1>Notifications</h1>
+        <p class="count" *ngIf="getUnreadCount() > 0">{{ getUnreadCount() }} non lue(s)</p>
+      </div>
+      <button class="mark-all-btn" (click)="markAllAsRead()" *ngIf="getUnreadCount() > 0">
+        <ion-icon name="checkmark-done"></ion-icon>
+      </button>
+    </header>
+
+    <section class="filter-tabs">
+      <button 
+        [class.active]="filter === 'all'"
+        (click)="filter = 'all'">
+        Toutes
+      </button>
+      <button 
+        [class.active]="filter === 'unread'"
+        (click)="filter = 'unread'">
+        Non lues ({{ getUnreadCount() }})
+      </button>
+    </section>
+
+    <section class="notifications-list">
+      <article 
+        class="notification-card" 
+        [class.unread]="!notif.isRead"
+        *ngFor="let notif of getFilteredNotifications(); let i = index"
+        [style.animation-delay]="i * 50 + 'ms'"
+        (click)="markAsRead(notif)">
+        
+        <div class="icon-wrapper" [style.background]="notif.color + '20'" [style.border-color]="notif.color">
+          <ion-icon [name]="notif.icon" [style.color]="notif.color"></ion-icon>
+        </div>
+
+        <div class="notification-content">
+          <div class="notification-header">
+            <h3>{{ notif.title }}</h3>
+            <button class="delete-btn" (click)="deleteNotification(notif.id); $event.stopPropagation()">
+              <ion-icon name="close"></ion-icon>
+            </button>
+          </div>
+          <p>{{ notif.message }}</p>
+          <small class="time">{{ notif.time }}</small>
+        </div>
+
+        <span class="unread-dot" *ngIf="!notif.isRead"></span>
+      </article>
+    </section>
+
+    <div class="empty-state" *ngIf="getFilteredNotifications().length === 0">
+      <ion-icon name="notifications-off-outline"></ion-icon>
+      <p>Aucune notification</p>
+    </div>
+  </div>
+</ion-content>

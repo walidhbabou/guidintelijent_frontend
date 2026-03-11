@@ -1,0 +1,134 @@
+<ion-content [fullscreen]="true" class="map-content">
+  
+  <!-- Barre de recherche fixe -->
+  <div class="search-bar">
+    <ion-icon name="search-outline"></ion-icon>
+    <input 
+      type="text" 
+      [(ngModel)]="searchQuery"
+      (input)="onSearch()"
+      placeholder="Rechercher un lieu..." 
+    />
+    <button class="filter-btn" (click)="toggleFilters()">
+      <ion-icon name="options-outline"></ion-icon>
+    </button>
+  </div>
+
+  <!-- Catégories -->
+  <div class="category-filters" [class.show]="showFilters">
+    <button 
+      *ngFor="let filter of filterOptions"
+      [class.active]="selectedFilter === filter"
+      (click)="onFilterChange(filter)">
+      {{ filter }}
+    </button>
+  </div>
+
+  <!-- Zone Google Maps (iframe embed) -->
+  <div class="map-container">
+    <div class="route-banner" *ngIf="showRoute && routeDestination">
+      <div class="route-text">
+        <ion-icon name="navigate"></ion-icon>
+        Itineraire vers {{ routeDestination.name }}
+      </div>
+      <button (click)="closeRoute()">Fermer</button>
+    </div>
+
+    <iframe
+      class="map-embed"
+      [src]="mapEmbedUrl"
+      width="600"
+      height="450"
+      style="border: 0"
+      allowfullscreen=""
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </div>
+
+  <!-- Liste des lieux -->
+  <div class="places-list">
+    <div class="list-header">
+      <h3>{{ getFilteredPlaces().length }} lieux à proximité</h3>
+      <button class="center-btn" (click)="centerToMyLocation()">
+        <ion-icon name="locate"></ion-icon>
+      </button>
+    </div>
+    
+    <div class="places-scroll">
+      <article 
+        class="place-card" 
+        *ngFor="let place of getFilteredPlaces(); let i = index"
+        [class.selected]="selectedPlace?.id === place.id"
+        [style.animation-delay]="i * 60 + 'ms'"
+        (click)="centerOnPlace(place)">
+        <img [src]="place.image" [alt]="place.name" loading="lazy" />
+        <div class="place-info">
+          <h4>{{ place.name }}</h4>
+          <p class="distance">
+            <ion-icon name="navigate-outline"></ion-icon>
+            {{ place.distance }}
+          </p>
+          <div class="place-footer">
+            <span class="category">{{ place.category }}</span>
+            <div class="rating">
+              <ion-icon name="star"></ion-icon>
+              <span>{{ place.rating }}</span>
+            </div>
+            <span class="status" [class.open]="place.isOpen">
+              {{ place.isOpen ? 'Ouvert' : 'Fermé' }}
+            </span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <!-- Info bulle lieu sélectionné -->
+  <div class="place-info-card" *ngIf="selectedPlace">
+    <button class="close-btn" (click)="closeInfo()">
+      <ion-icon name="close"></ion-icon>
+    </button>
+    
+    <img [src]="selectedPlace.image" [alt]="selectedPlace.name" loading="lazy" />
+    
+    <div class="info-content">
+      <h3>{{ selectedPlace.name }}</h3>
+      <p class="location">
+        <ion-icon name="navigate-outline"></ion-icon>
+        {{ selectedPlace.distance }}
+      </p>
+      
+      <div class="info-tags">
+        <span class="category-tag">{{ selectedPlace.category }}</span>
+        <div class="rating-tag">
+          <ion-icon name="star"></ion-icon>
+          <span>{{ selectedPlace.rating }}</span>
+        </div>
+        <span class="status-tag" [class.open]="selectedPlace.isOpen">
+          {{ selectedPlace.isOpen ? 'Ouvert' : 'Fermé' }}
+        </span>
+      </div>
+
+      <div class="action-buttons">
+        <button class="action-btn primary" (click)="getDirections(selectedPlace)">
+          <ion-icon name="navigate"></ion-icon>
+          Itineraire
+        </button>
+        <button class="action-btn" (click)="callPlace(selectedPlace)">
+          <ion-icon name="call"></ion-icon>
+          Appeler
+        </button>
+        <button class="action-btn" (click)="toggleFavorite(selectedPlace)">
+          <ion-icon [name]="selectedPlace.isFavorite ? 'heart' : 'heart-outline'"></ion-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bouton ma position -->
+  <button class="my-location-btn" (click)="centerToMyLocation()">
+    <ion-icon name="locate"></ion-icon>
+  </button>
+
+</ion-content>

@@ -1,0 +1,263 @@
+.favoris-content {
+	--background: linear-gradient(135deg, #f4f7ff 0%, #f8efff 50%, #fff7f2 100%);
+}
+
+.favoris-shell {
+	padding-top: 20px;
+	padding-bottom: 96px;
+}
+
+.page-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 20px;
+	animation: slide-down 500ms ease-out;
+
+	h1 {
+		margin: 0;
+		font-size: 2rem;
+		background: linear-gradient(135deg, #2f74d9 0%, #b565d8 50%, #ff7b7b 100%);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+	}
+
+	.heart-icon {
+		font-size: 1.8rem;
+		color: #ff5d7b;
+		animation: pulse-heart 1.5s ease-in-out infinite;
+	}
+}
+
+.category-tabs {
+	display: flex;
+	gap: 8px;
+	overflow-x: auto;
+	padding-bottom: 6px;
+	margin-bottom: 16px;
+	animation: slide-right 600ms ease-out;
+
+	&::-webkit-scrollbar {
+		display: none;
+	}
+
+	button {
+		padding: 8px 18px;
+		border-radius: 20px;
+		border: none;
+		background: rgba(255, 255, 255, 0.7);
+		backdrop-filter: blur(10px);
+		color: #5e7298;
+		font-size: 0.95rem;
+		font-weight: 600;
+		white-space: nowrap;
+		transition: all 300ms ease;
+		box-shadow: 0 4px 12px rgba(46, 83, 145, 0.08);
+
+		&.active {
+			background: linear-gradient(135deg, #3d7be6 0%, #6caeff 100%);
+			color: #fff;
+			box-shadow: 0 6px 20px rgba(61, 123, 230, 0.35);
+			transform: translateY(-2px);
+		}
+
+		&:not(.active):hover {
+			background: rgba(255, 255, 255, 0.9);
+			transform: translateY(-1px);
+		}
+	}
+}
+
+.favorites-list {
+	display: grid;
+	gap: 14px;
+}
+
+.favorite-card {
+	background: rgba(255, 255, 255, 0.85);
+	backdrop-filter: blur(20px);
+	border-radius: 18px;
+	overflow: hidden;
+	box-shadow: 0 10px 30px rgba(41, 72, 126, 0.12);
+	transition: all 400ms ease;
+	animation: fade-up 600ms ease-out backwards;
+	border: 1px solid rgba(255, 255, 255, 0.5);
+
+	&:hover {
+		transform: translateY(-4px);
+		box-shadow: 0 15px 40px rgba(41, 72, 126, 0.2);
+	}
+
+	img {
+		width: 100%;
+		height: 160px;
+		object-fit: cover;
+		transition: transform 400ms ease;
+	}
+
+	&:hover img {
+		transform: scale(1.05);
+	}
+
+	.card-info {
+		padding: 14px;
+	}
+
+	.card-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		margin-bottom: 10px;
+
+		h3 {
+			margin: 0 0 6px;
+			font-size: 1.2rem;
+			color: #1f2b45;
+			font-weight: 700;
+		}
+
+		.location {
+			margin: 0;
+			display: flex;
+			align-items: center;
+			gap: 4px;
+			color: #687a9d;
+			font-size: 0.88rem;
+
+			ion-icon {
+				font-size: 0.95rem;
+				color: #6caeff;
+			}
+		}
+	}
+
+	.like-btn {
+		width: 42px;
+		height: 42px;
+		border-radius: 50%;
+		border: none;
+		background: rgba(255, 255, 255, 0.9);
+		box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+		display: grid;
+		place-items: center;
+		transition: all 300ms ease;
+
+		ion-icon {
+			font-size: 1.3rem;
+			color: #d1d9e7;
+			transition: all 300ms ease;
+		}
+
+		&.active ion-icon {
+			color: #ff5d7b;
+			animation: heart-beat 600ms ease;
+		}
+
+		&:active {
+			transform: scale(0.92);
+		}
+	}
+
+	.card-footer {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+
+		.category-badge {
+			padding: 6px 14px;
+			border-radius: 20px;
+			background: linear-gradient(135deg, #e8f2ff 0%, #f0e7ff 100%);
+			color: #5a7db8;
+			font-size: 0.82rem;
+			font-weight: 600;
+		}
+
+		.rating {
+			display: flex;
+			align-items: center;
+			gap: 4px;
+			color: #2a4572;
+			font-weight: 700;
+			font-size: 0.95rem;
+
+			ion-icon {
+				font-size: 1.1rem;
+				color: #ffb84d;
+			}
+		}
+	}
+}
+
+.empty-state {
+	text-align: center;
+	margin-top: 60px;
+	color: #687a9d;
+	font-size: 1.1rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 12px;
+
+	ion-icon {
+		font-size: 3.5rem;
+		color: #d1d9e7;
+	}
+}
+
+@keyframes slide-down {
+	from {
+		opacity: 0;
+		transform: translateY(-20px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes slide-right {
+	from {
+		opacity: 0;
+		transform: translateX(-30px);
+	}
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+@keyframes fade-up {
+	from {
+		opacity: 0;
+		transform: translateY(20px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes pulse-heart {
+	0%, 100% {
+		transform: scale(1);
+	}
+	50% {
+		transform: scale(1.1);
+	}
+}
+
+@keyframes heart-beat {
+	0%, 100% {
+		transform: scale(1);
+	}
+	25% {
+		transform: scale(1.3);
+	}
+	50% {
+		transform: scale(1.1);
+	}
+	75% {
+		transform: scale(1.2);
+	}
+}

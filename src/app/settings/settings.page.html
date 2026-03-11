@@ -1,0 +1,125 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tab3"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Paramètres</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="settings-content">
+  <div class="settings-shell ion-padding">
+    
+    <!-- En-tête -->
+    <div class="settings-header">
+      <div class="header-icon">
+        <ion-icon name="settings"></ion-icon>
+      </div>
+      <h1>Paramètres</h1>
+      <p>Gérez votre compte et vos préférences</p>
+    </div>
+
+    <!-- Compte -->
+    <section class="settings-section">
+      <h2>
+        <ion-icon name="person"></ion-icon>
+        Compte
+      </h2>
+      <div class="settings-list">
+        <article 
+          class="setting-item" 
+          *ngFor="let item of accountSettings; let i = index"
+          [style.animation-delay]="i * 50 + 'ms'"
+          (click)="onSettingClick(item)">
+          <div class="item-icon" [style.background]="item.color + '20'">
+            <ion-icon [name]="item.icon" [style.color]="item.color"></ion-icon>
+          </div>
+          <div class="item-content">
+            <h3>{{ item.title }}</h3>
+            <p *ngIf="item.subtitle">{{ item.subtitle }}</p>
+          </div>
+          <ion-icon name="chevron-forward-outline" class="chevron"></ion-icon>
+        </article>
+      </div>
+    </section>
+
+    <!-- Préférences -->
+    <section class="settings-section">
+      <h2>
+        <ion-icon name="options"></ion-icon>
+        Préférences
+      </h2>
+      <div class="settings-list">
+        <article 
+          class="setting-item" 
+          *ngFor="let item of appSettings; let i = index"
+          [style.animation-delay]="(i + 3) * 50 + 'ms'">
+          <div class="item-icon" [style.background]="item.color + '20'">
+            <ion-icon [name]="item.icon" [style.color]="item.color"></ion-icon>
+          </div>
+          <div class="item-content">
+            <h3>{{ item.title }}</h3>
+            <p *ngIf="item.subtitle">{{ item.subtitle }}</p>
+          </div>
+          <ion-toggle 
+            [(ngModel)]="item.value" 
+            (ionChange)="onToggleChange(item)"
+            class="custom-toggle">
+          </ion-toggle>
+        </article>
+      </div>
+    </section>
+
+    <!-- Autres -->
+    <section class="settings-section">
+      <h2>
+        <ion-icon name="apps"></ion-icon>
+        Autres
+      </h2>
+      <div class="settings-list">
+        <article 
+          class="setting-item" 
+          *ngFor="let item of otherSettings; let i = index"
+          [style.animation-delay]="(i + 8) * 50 + 'ms'"
+          (click)="onSettingClick(item)">
+          <div class="item-icon" [style.background]="item.color + '20'">
+            <ion-icon [name]="item.icon" [style.color]="item.color"></ion-icon>
+          </div>
+          <div class="item-content">
+            <h3>{{ item.title }}</h3>
+            <p *ngIf="item.subtitle">{{ item.subtitle }}</p>
+          </div>
+          <ion-icon name="chevron-forward-outline" class="chevron"></ion-icon>
+        </article>
+      </div>
+    </section>
+
+    <!-- Actions -->
+    <section class="settings-section">
+      <div class="settings-list">
+        <article 
+          class="setting-item danger" 
+          *ngFor="let item of dangerSettings; let i = index"
+          [style.animation-delay]="(i + 13) * 50 + 'ms'"
+          (click)="onSettingClick(item)">
+          <div class="item-icon" [style.background]="item.color + '20'">
+            <ion-icon [name]="item.icon" [style.color]="item.color"></ion-icon>
+          </div>
+          <div class="item-content">
+            <h3>{{ item.title }}</h3>
+            <p *ngIf="item.subtitle">{{ item.subtitle }}</p>
+          </div>
+          <ion-icon name="chevron-forward-outline" class="chevron"></ion-icon>
+        </article>
+      </div>
+    </section>
+
+    <!-- Version -->
+    <div class="app-version">
+      <p>AppGuide Maroc</p>
+      <p>Version 1.0.0 (Build 100)</p>
+      <p>© 2026 Tous droits réservés</p>
+    </div>
+
+  </div>
+</ion-content>

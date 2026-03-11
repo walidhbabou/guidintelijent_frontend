@@ -1,0 +1,106 @@
+<ion-content [fullscreen]="true" class="signup-content">
+  <div class="background-overlay"></div>
+  
+  <div class="signup-container">
+    <!-- Back Button -->
+    <button class="back-btn" (click)="goBack()">
+      <ion-icon name="arrow-back"></ion-icon>
+    </button>
+
+    <!-- Header -->
+    <div class="welcome-section">
+      <h1 class="welcome-title">Inscription</h1>
+      <p class="welcome-subtitle">Rejoignez-nous aujourd'hui</p>
+    </div>
+
+    <!-- Signup Form -->
+    <div class="signup-form">
+      <div class="input-group">
+        <ion-icon name="person-outline" class="input-icon"></ion-icon>
+        <input 
+          type="text" 
+          [(ngModel)]="fullName" 
+          placeholder="Nom complet"
+          class="custom-input"
+        />
+      </div>
+
+      <div class="input-group">
+        <ion-icon name="mail-outline" class="input-icon"></ion-icon>
+        <input 
+          type="email" 
+          [(ngModel)]="email" 
+          placeholder="Adresse e-mail"
+          class="custom-input"
+        />
+      </div>
+
+      <div class="input-group">
+        <ion-icon name="call-outline" class="input-icon"></ion-icon>
+        <input 
+          type="tel" 
+          [(ngModel)]="phone" 
+          placeholder="Numéro de téléphone"
+          class="custom-input"
+        />
+      </div>
+
+      <div class="input-group">
+        <ion-icon name="lock-closed-outline" class="input-icon"></ion-icon>
+        <input 
+          [type]="showPassword ? 'text' : 'password'" 
+          [(ngModel)]="password" 
+          placeholder="Mot de passe"
+          class="custom-input"
+        />
+        <ion-icon 
+          [name]="showPassword ? 'eye-outline' : 'eye-off-outline'" 
+          class="toggle-password"
+          (click)="togglePassword()"
+        ></ion-icon>
+      </div>
+
+      <div class="input-group">
+        <ion-icon name="lock-closed-outline" class="input-icon"></ion-icon>
+        <input 
+          [type]="showConfirmPassword ? 'text' : 'password'" 
+          [(ngModel)]="confirmPassword" 
+          placeholder="Confirmer le mot de passe"
+          class="custom-input"
+        />
+        <ion-icon 
+          [name]="showConfirmPassword ? 'eye-outline' : 'eye-off-outline'" 
+          class="toggle-password"
+          (click)="toggleConfirmPassword()"
+        ></ion-icon>
+      </div>
+
+      <div class="terms-checkbox">
+        <input type="checkbox" id="terms" [(ngModel)]="acceptTerms" />
+        <label for="terms">
+          J'accepte les <a>conditions d'utilisation</a> et la <a>politique de confidentialité</a>
+        </label>
+      </div>
+
+      <button class="signup-btn" (click)="signup()" [disabled]="!acceptTerms">
+        S'inscrire
+      </button>
+
+      <!-- Google Signup -->
+      <div class="divider">
+        <span>ou</span>
+      </div>
+
+      <button class="google-btn" (click)="signupWithGoogle()">
+        <ion-icon name="logo-google"></ion-icon>
+        S'inscrire avec Google
+      </button>
+
+      <!-- Login link -->
+      <p class="login-text">
+        Vous avez déjà un compte ? 
+        <a (click)="goToLogin()">Connectez-vous</a>
+      </p>
+    </div>
+  </div>
+</ion-content>
