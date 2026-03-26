@@ -12,8 +12,12 @@ $RECYCLE.BIN/
 *.log
 log.txt
 
+# Cypress
+/cypress/videos
+/cypress/screenshots
+/cypress/downloads
 
-/.sourcemaps
+# Specifies intentionally untracked files to ignore when using Git
 /.versions
 /coverage
 

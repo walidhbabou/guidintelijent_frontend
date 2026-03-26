@@ -3,7 +3,15 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  // URL du gateway backend en navigateur local
+  apiGatewayUrl: 'http://localhost:8081',
+  // URL du gateway backend depuis l'emulateur Android (localhost de la machine hote)
+  apiGatewayUrlAndroidEmulator: 'http://10.0.2.2:8081',
+  // Prefix commun des routes backend
+  apiBasePath: '/api',
+  // En dev web: false = utilise directement le gateway, true = utilise le proxy Angular
+  useProxyInBrowserDev: false
 };
 
 /*

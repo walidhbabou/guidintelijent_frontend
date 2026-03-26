@@ -82,8 +82,9 @@
         </label>
       </div>
 
-      <button class="signup-btn" (click)="signup()" [disabled]="!acceptTerms">
-        S'inscrire
+      <button class="signup-btn" (click)="signup()" [disabled]="!acceptTerms || isLoading">
+        <span *ngIf="isLoading">Creation...</span>
+        <span *ngIf="!isLoading">S'inscrire</span>
       </button>
 
       <!-- Google Signup -->

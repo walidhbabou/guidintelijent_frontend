@@ -31,8 +31,9 @@
         />
       </div>
 
-      <button class="login-btn" (click)="login()">
-        Connexion
+      <button class="login-btn" (click)="login()" [disabled]="isLoading">
+        <span *ngIf="isLoading">Connexion...</span>
+        <span *ngIf="!isLoading">Connexion</span>
       </button>
 
       <a class="forgot-password" (click)="forgotPassword()">

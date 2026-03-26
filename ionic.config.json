@@ -3,5 +3,11 @@
   "integrations": {
     "capacitor": {}
   },
-  "type": "angular"
+  "type": "angular",
+  "cli": {
+    "defaultPlatform": "browser",
+    "serve": {
+      "proxyConfig": "proxy.conf.json"
+    }
+  }
 }
